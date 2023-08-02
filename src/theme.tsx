@@ -4,7 +4,7 @@ const theme = extendTheme({
   semanticTokens: {
     colors: {
       header: {
-        default: "#A1E6FF",
+        default: "#54D1FF",
         _dark: "#0A1724",
       },
     },

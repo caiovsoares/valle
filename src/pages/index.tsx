@@ -42,6 +42,14 @@ const Index = () => {
   const [totalInvestido, setTotalInvestido] = useState<string>("R$ 0.00");
   const [totalInterest, setTotalInterest] = useState<string>("R$ 0.00");
 
+  const [interestTime, setInterestTime] = useState<string>("m");
+  const handleInterestTimeChange = (e: ChangeEvent<HTMLSelectElement>) =>
+    setInterestTime(e.target.value);
+
+  const [periodTime, setPeriodTime] = useState<string>("m");
+  const handlePeriodTimeChange = (e: ChangeEvent<HTMLSelectElement>) =>
+    setPeriodTime(e.target.value);
+
   const onSubmit = () => {
     table.length = 0;
 
@@ -53,10 +61,13 @@ const Index = () => {
       totalAcumulado: startingValue,
     });
 
-    for (let i = 0; i < period; i++) {
+    const periodTimeSelected = periodTime == "m" ? 1 : 12;
+    const interestSelected =
+      interestTime == "m" ? interest : Math.pow(1 + interest, 1 / 12) - 1;
+    for (let i = 0; i < period * periodTimeSelected; i++) {
       const row = table[table.length - 1];
 
-      const juros = row.totalAcumulado * interest * 0.01;
+      const juros = row.totalAcumulado * interestSelected * 0.01;
       const totalInvestido = row.totalInvestido + monthlyValue;
       const totalJuros = row.totalJuros + juros;
       const totalAcumulado = totalInvestido + totalJuros;
@@ -119,13 +130,17 @@ const Index = () => {
           </Flex>
           <InputGroup w={300} mb={2}>
             <InputLeftAddon children="%" />
+            <Input type="number" onChange={handleInterestChange} />
             <InputRightElement w="30">
-              <Select defaultValue={1} borderLeftRadius={0}>
-                <option value="1">Mensal</option>
-                <option value="2">Anual</option>
+              <Select
+                defaultValue={1}
+                borderLeftRadius={0}
+                onChange={handleInterestTimeChange}
+              >
+                <option value="m">Mensal</option>
+                <option value="a">Anual</option>
               </Select>
             </InputRightElement>
-            <Input type="number" onChange={handleInterestChange} />
           </InputGroup>
           <Flex
             w="100px"
@@ -138,9 +153,13 @@ const Index = () => {
           <InputGroup w={300} mb={2}>
             <Input type="number" onChange={handlePeriodChange} />
             <InputRightElement w="30">
-              <Select defaultValue={1} borderLeftRadius={0}>
-                <option value="1">Mes(es)</option>
-                <option value="2">Ano(s)</option>
+              <Select
+                defaultValue={1}
+                borderLeftRadius={0}
+                onChange={handlePeriodTimeChange}
+              >
+                <option value="m">Mes(es)</option>
+                <option value="a">Ano(s)</option>
               </Select>
             </InputRightElement>
           </InputGroup>
