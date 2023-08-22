@@ -7,6 +7,14 @@ import {
   Button,
   InputRightElement,
   Select,
+  Table,
+  Thead,
+  Td,
+  Th,
+  Tr,
+  TableContainer,
+  Tbody,
+  Card,
 } from "@chakra-ui/react";
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
 import { ChangeEvent, useState } from "react";
@@ -19,8 +27,19 @@ type tableRowInterface = {
   totalAcumulado: number;
 };
 
+function mostraValor(valor: number) {
+  return (
+    "R$ " +
+    valor
+      .toFixed(2)
+      .replace(".", ",")
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+  );
+}
+
 const Index = () => {
   const table: tableRowInterface[] = [];
+  const [tableData, setTableData] = useState<tableRowInterface[]>([]);
 
   const [startingValue, setStartingValue] = useState<number>(0);
   const handleStartingValueChange = (e: ChangeEvent<HTMLInputElement>) =>
@@ -38,9 +57,9 @@ const Index = () => {
   const handlePeriodChange = (e: ChangeEvent<HTMLInputElement>) =>
     setPeriod(parseFloat(e.target.value));
 
-  const [totalFinal, setTotalFinal] = useState<string>("R$ 0.00");
-  const [totalInvestido, setTotalInvestido] = useState<string>("R$ 0.00");
-  const [totalInterest, setTotalInterest] = useState<string>("R$ 0.00");
+  const [totalFinal, setTotalFinal] = useState<string>("R$ 0,00");
+  const [totalInvestido, setTotalInvestido] = useState<string>("R$ 0,00");
+  const [totalInterest, setTotalInterest] = useState<string>("R$ 0,00");
 
   const [interestTime, setInterestTime] = useState<string>("m");
   const handleInterestTimeChange = (e: ChangeEvent<HTMLSelectElement>) =>
@@ -63,7 +82,9 @@ const Index = () => {
 
     const periodTimeSelected = periodTime == "m" ? 1 : 12;
     const interestSelected =
-      interestTime == "m" ? interest : Math.pow(1 + interest, 1 / 12) - 1;
+      interestTime == "m"
+        ? interest
+        : (Math.pow(1 + interest / 100, 1 / 12) - 1) * 100;
     for (let i = 0; i < period * periodTimeSelected; i++) {
       const row = table[table.length - 1];
 
@@ -79,16 +100,28 @@ const Index = () => {
         totalAcumulado,
       });
     }
+    setTotalFinal(mostraValor(table[table.length - 1].totalAcumulado));
+    setTotalInvestido(mostraValor(table[table.length - 1].totalInvestido));
+    setTotalInterest(mostraValor(table[table.length - 1].totalJuros));
+    setTableData(table);
+  };
 
-    setTotalFinal("R$ " + table[table.length - 1].totalAcumulado.toFixed(2));
-    setTotalInvestido(
-      "R$ " + table[table.length - 1].totalInvestido.toFixed(2)
-    );
-    setTotalInterest("R$ " + table[table.length - 1].totalJuros.toFixed(2));
+  const clearData = () => {
+    setInterest(0);
+    setStartingValue(0);
+    setMonthlyValue(0);
+    setPeriod(0);
+    setTotalFinal("R$ 0,00");
+    setTotalInvestido("R$ 0,00");
+    setTotalInterest("R$ 0,00");
+    setInterestTime("m");
+    setPeriodTime("m");
+    setTableData([]);
+    setTableData([]);
   };
 
   return (
-    <Flex flexDir="column" alignItems={"center"} my={20}>
+    <Flex flexDir="column" alignItems={"center"} my={20} w="100%">
       <Text fontSize="2xl" mb={5}>
         Simulador de Juros Compostos
       </Text>
@@ -104,7 +137,11 @@ const Index = () => {
           </Flex>
           <InputGroup w={300} mb={2}>
             <InputLeftAddon children="R$" />
-            <Input type="number" onChange={handleStartingValueChange} />
+            <Input
+              type="number"
+              value={startingValue}
+              onChange={handleStartingValueChange}
+            />
           </InputGroup>
           <Flex
             w="100px"
@@ -116,7 +153,11 @@ const Index = () => {
           </Flex>
           <InputGroup w={300} mb={2}>
             <InputLeftAddon children="R$" />
-            <Input type="number" onChange={handleMonthlyValueChange} />
+            <Input
+              type="number"
+              value={monthlyValue}
+              onChange={handleMonthlyValueChange}
+            />
           </InputGroup>
         </Flex>
         <Flex flexDir={["column", "column", "column", "row", "row"]}>
@@ -130,11 +171,16 @@ const Index = () => {
           </Flex>
           <InputGroup w={300} mb={2}>
             <InputLeftAddon children="%" />
-            <Input type="number" onChange={handleInterestChange} />
+            <Input
+              type="number"
+              value={interest}
+              onChange={handleInterestChange}
+            />
             <InputRightElement w="30">
               <Select
                 defaultValue={1}
                 borderLeftRadius={0}
+                value={interestTime}
                 onChange={handleInterestTimeChange}
               >
                 <option value="m">Mensal</option>
@@ -151,11 +197,12 @@ const Index = () => {
             <Text>Período</Text>
           </Flex>
           <InputGroup w={300} mb={2}>
-            <Input type="number" onChange={handlePeriodChange} />
+            <Input type="number" value={period} onChange={handlePeriodChange} />
             <InputRightElement w="30">
               <Select
                 defaultValue={1}
                 borderLeftRadius={0}
+                value={periodTime}
                 onChange={handlePeriodTimeChange}
               >
                 <option value="m">Mes(es)</option>
@@ -164,21 +211,34 @@ const Index = () => {
             </InputRightElement>
           </InputGroup>
         </Flex>
+        <Flex justifyContent="space-between">
+          <Button variant="outline" w={20} onClick={onSubmit}>
+            Calcular
+          </Button>
 
-        <Button variant="outline" w={20} onClick={onSubmit}>
-          Calcular
-        </Button>
+          <Button variant="outline" w={20} onClick={clearData}>
+            Limpar
+          </Button>
+        </Flex>
       </Flex>
       <Flex flexDir="column">
         <Text>Resultado</Text>
         <Flex flexDir={["column", "column", "row", "row"]}>
-          <Flex flexDir="column" border="1px" borderRadius="md" p="3" w={200}>
+          <Flex
+            flexDir="column"
+            border="1px"
+            borderColor="borderColor"
+            borderRadius="md"
+            p="3"
+            w={200}
+          >
             <Text>Valor total final</Text>
             <Text fontSize="2xl">{totalFinal}</Text>
           </Flex>
           <Flex
             flexDir="column"
             border="1px"
+            borderColor="borderColor"
             borderRadius="md"
             p="3"
             my={[4, 4, 0, 0]}
@@ -188,11 +248,98 @@ const Index = () => {
             <Text>Valor total investido</Text>
             <Text fontSize="2xl">{totalInvestido}</Text>
           </Flex>
-          <Flex flexDir="column" border="1px" borderRadius="md" p="3" w={200}>
+          <Flex
+            flexDir="column"
+            border="1px"
+            borderColor="borderColor"
+            borderRadius="md"
+            p="3"
+            w={200}
+          >
             <Text>Total em juros</Text>
             <Text fontSize="2xl">{totalInterest}</Text>
           </Flex>
         </Flex>
+      </Flex>
+      {!!tableData.length && (
+        <Card mt={5}>
+          <TableContainer>
+            <Table variant="simple">
+              <Thead>
+                <Tr>
+                  <Th>Mês</Th>
+                  <Th>Juros</Th>
+                  <Th>Total Investido</Th>
+                  <Th>Total Juros</Th>
+                  <Th>Total Acumulado</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {tableData.map((row) => (
+                  <Tr>
+                    <Td>{row.mes}</Td>
+                    <Td>{mostraValor(row.juros)}</Td>
+                    <Td>{mostraValor(row.totalInvestido)}</Td>
+                    <Td>{mostraValor(row.totalJuros)}</Td>
+                    <Td>{mostraValor(row.totalAcumulado)}</Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          </TableContainer>
+        </Card>
+      )}
+
+      <Flex flexDir="column" m={3}>
+        <Card p={3} alignItems="center">
+          <Text fontSize="4xl">O que é juros compostos</Text>
+          <Text my={4}>
+            Vamos colocar um texto muito legal aqui... Vamos colocar um texto
+            muito legal aqui... Vamos colocar um texto muito legal aqui... Vamos
+            colocar um texto muito legal aqui... Vamos colocar um texto muito
+            legal aqui... Vamos colocar um texto muito legal aqui... Vamos
+            colocar um texto muito legal aqui... Vamos colocar um texto muito
+            legal aqui... Vamos colocar um texto muito legal aqui... Vamos
+            colocar um texto muito legal aqui... Vamos colocar um texto muito
+            legal aqui... Vamos colocar um texto muito legal aqui... Vamos
+            colocar um texto muito legal aqui... Vamos colocar um texto muito
+            legal aqui... Vamos colocar um texto muito legal aqui... Vamos
+            colocar um texto muito legal aqui... Vamos colocar um texto muito
+            legal aqui... Vamos colocar um texto muito legal aqui... Vamos
+            colocar um texto muito legal aqui... Vamos colocar um texto muito
+            legal aqui... Vamos colocar um texto muito legal aqui... Vamos
+            colocar um texto muito legal aqui...
+          </Text>
+          <iframe
+            width="304"
+            height="171"
+            src="https://www.youtube.com/embed/rq8ZUdRVDAM"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+          <Text fontSize="4xl" mt={4}>
+            O que é juros compostos
+          </Text>
+          <Text my={4}>
+            Vamos colocar um texto muito legal aqui... Vamos colocar um texto
+            muito legal aqui... Vamos colocar um texto muito legal aqui... Vamos
+            colocar um texto muito legal aqui... Vamos colocar um texto muito
+            legal aqui... Vamos colocar um texto muito legal aqui... Vamos
+            colocar um texto muito legal aqui... Vamos colocar um texto muito
+            legal aqui... Vamos colocar um texto muito legal aqui... Vamos
+            colocar um texto muito legal aqui... Vamos colocar um texto muito
+            legal aqui... Vamos colocar um texto muito legal aqui... Vamos
+            colocar um texto muito legal aqui... Vamos colocar um texto muito
+            legal aqui... Vamos colocar um texto muito legal aqui... Vamos
+            colocar um texto muito legal aqui... Vamos colocar um texto muito
+            legal aqui... Vamos colocar um texto muito legal aqui... Vamos
+            colocar um texto muito legal aqui... Vamos colocar um texto muito
+            legal aqui... Vamos colocar um texto muito legal aqui... Vamos
+            colocar um texto muito legal aqui...
+          </Text>
+        </Card>
       </Flex>
       <DarkModeSwitch />
     </Flex>
