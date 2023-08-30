@@ -21,15 +21,6 @@ const investimentosInteligentes = () => {
           aqui... Vamos colocar um texto muito legal aqui... Vamos colocar um
           texto muito legal aqui... Vamos colocar um texto muito legal aqui...
         </Text>
-        <iframe
-          width="304"
-          height="171"
-          src="https://www.youtube.com/embed/rq8ZUdRVDAM"
-          title="YouTube video player"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-        ></iframe>
         <Text fontSize="4xl" mt={4}>
           O que é juros compostos
         </Text>
