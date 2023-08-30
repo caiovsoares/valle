@@ -15,6 +15,7 @@ import {
   Tbody,
   Td,
   Text,
+  Heading,
 } from "@chakra-ui/react";
 import { ChangeEvent, useState } from "react";
 
@@ -120,7 +121,22 @@ const Calculadora = () => {
   };
 
   return (
-    <Flex flexDir="column" mb={12} alignItems="center">
+    <Flex
+      px={8}
+      py={10}
+      width="100%"
+      maxWidth="1000px"
+      flexDir="column"
+      mb={12}
+      alignItems="center"
+      border="1px solid"
+      borderColor="borderColor"
+      borderRadius={8}
+      boxShadow="dark-lg"
+    >
+      <Heading fontSize="2xl" mb={5}>
+        Simulador de Juros Compostos
+      </Heading>
       <Flex className="calculadora" flexDir="column" mb={4}>
         <Flex flexDir={["column", "column", "column", "row", "row"]}>
           <Flex

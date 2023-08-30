@@ -6,9 +6,6 @@ import TabelaComparaJuros from "../components/TabelaComparaJuros";
 const Index = () => {
   return (
     <Flex flexDir="column" alignItems={"center"} my={20} w="100%">
-      <Heading fontSize="2xl" mb={5}>
-        Simulador de Juros Compostos
-      </Heading>
       <Calculadora />
       <Flex flexDir="column" m={3} alignItems="center">
         <Flex
@@ -23,7 +20,9 @@ const Index = () => {
         >
           <Heading fontSize="2xl">Fórmula do juros composto</Heading>
           <Card variant="filled" my={2} py={4} px={6}>
-            <Text fontSize="2xl">M = C (1 + i)^t </Text>
+            <Text fontSize="2xl">
+              M = C (1 + i)<sup>t</sup>{" "}
+            </Text>
           </Card>
           <Text my={4} width="100%" fontSize="xl">
             Mas afinal, o que são essas letras?
