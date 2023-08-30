@@ -19,7 +19,7 @@ const Index = () => {
           borderRadius={8}
           boxShadow="dark-lg"
         >
-          <Heading fontSize="2xl">Fórmula do juros composto</Heading>
+          <Heading fontSize="2xl">Fórmula de juros compostos</Heading>
           <Card variant="filled" my={2} py={4} px={6}>
             <Text fontSize="2xl">
               M = C (1 + i)<sup>t</sup>{" "}
