@@ -18,7 +18,7 @@ const theme = extendTheme({
         _dark: "#173857",
       },
       borderColor: {
-        default: "gray.300",
+        default: "gray.200",
         _dark: "gray.600",
       },
     },

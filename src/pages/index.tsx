@@ -1,347 +1,83 @@
-import {
-  Flex,
-  Text,
-  Input,
-  InputGroup,
-  InputLeftAddon,
-  Button,
-  InputRightElement,
-  Select,
-  Table,
-  Thead,
-  Td,
-  Th,
-  Tr,
-  TableContainer,
-  Tbody,
-  Card,
-} from "@chakra-ui/react";
-import { DarkModeSwitch } from "../components/DarkModeSwitch";
-import { ChangeEvent, useState } from "react";
-
-type tableRowInterface = {
-  mes: number;
-  juros: number;
-  totalInvestido: number;
-  totalJuros: number;
-  totalAcumulado: number;
-};
-
-function mostraValor(valor: number) {
-  return (
-    "R$ " +
-    valor
-      .toFixed(2)
-      .replace(".", ",")
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-  );
-}
+import { Flex, Text, Card, Heading } from "@chakra-ui/react";
+import Youtube from "../components/Youtube";
+import Calculadora from "../components/Calculadora";
+import TabelaComparaJuros from "../components/TabelaComparaJuros";
 
 const Index = () => {
-  const table: tableRowInterface[] = [];
-  const [tableData, setTableData] = useState<tableRowInterface[]>([]);
-
-  const [startingValue, setStartingValue] = useState<number>(0);
-  const handleStartingValueChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setStartingValue(parseFloat(e.target.value));
-
-  const [monthlyValue, setMonthlyValue] = useState<number>(0);
-  const handleMonthlyValueChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setMonthlyValue(parseFloat(e.target.value));
-
-  const [interest, setInterest] = useState<number>(0);
-  const handleInterestChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setInterest(parseFloat(e.target.value));
-
-  const [period, setPeriod] = useState<number>(0);
-  const handlePeriodChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setPeriod(parseFloat(e.target.value));
-
-  const [totalFinal, setTotalFinal] = useState<string>("R$ 0,00");
-  const [totalInvestido, setTotalInvestido] = useState<string>("R$ 0,00");
-  const [totalInterest, setTotalInterest] = useState<string>("R$ 0,00");
-
-  const [interestTime, setInterestTime] = useState<string>("m");
-  const handleInterestTimeChange = (e: ChangeEvent<HTMLSelectElement>) =>
-    setInterestTime(e.target.value);
-
-  const [periodTime, setPeriodTime] = useState<string>("m");
-  const handlePeriodTimeChange = (e: ChangeEvent<HTMLSelectElement>) =>
-    setPeriodTime(e.target.value);
-
-  const onSubmit = () => {
-    table.length = 0;
-
-    table.push({
-      mes: 0,
-      juros: 0,
-      totalInvestido: startingValue,
-      totalJuros: 0,
-      totalAcumulado: startingValue,
-    });
-
-    const periodTimeSelected = periodTime == "m" ? 1 : 12;
-    const interestSelected =
-      interestTime == "m"
-        ? interest
-        : (Math.pow(1 + interest / 100, 1 / 12) - 1) * 100;
-    for (let i = 0; i < period * periodTimeSelected; i++) {
-      const row = table[table.length - 1];
-
-      const juros = row.totalAcumulado * interestSelected * 0.01;
-      const totalInvestido = row.totalInvestido + monthlyValue;
-      const totalJuros = row.totalJuros + juros;
-      const totalAcumulado = totalInvestido + totalJuros;
-      table.push({
-        mes: i + 1,
-        juros,
-        totalInvestido,
-        totalJuros,
-        totalAcumulado,
-      });
-    }
-    setTotalFinal(mostraValor(table[table.length - 1].totalAcumulado));
-    setTotalInvestido(mostraValor(table[table.length - 1].totalInvestido));
-    setTotalInterest(mostraValor(table[table.length - 1].totalJuros));
-    setTableData(table);
-  };
-
-  const clearData = () => {
-    setInterest(0);
-    setStartingValue(0);
-    setMonthlyValue(0);
-    setPeriod(0);
-    setTotalFinal("R$ 0,00");
-    setTotalInvestido("R$ 0,00");
-    setTotalInterest("R$ 0,00");
-    setInterestTime("m");
-    setPeriodTime("m");
-    setTableData([]);
-    setTableData([]);
-  };
-
   return (
     <Flex flexDir="column" alignItems={"center"} my={20} w="100%">
-      <Text fontSize="2xl" mb={5}>
+      <Heading fontSize="2xl" mb={5}>
         Simulador de Juros Compostos
-      </Text>
-      <Flex className="calculadora" flexDir="column" mb={4}>
-        <Flex flexDir={["column", "column", "column", "row", "row"]}>
-          <Flex
-            w="100px"
-            justifyContent={["start", "start", "start", "end", "end"]}
-            mr={2}
-            alignItems="center"
-          >
-            <Text>Valor inicial</Text>
-          </Flex>
-          <InputGroup w={300} mb={2}>
-            <InputLeftAddon children="R$" />
-            <Input
-              type="number"
-              value={startingValue}
-              onChange={handleStartingValueChange}
-            />
-          </InputGroup>
-          <Flex
-            w="100px"
-            justifyContent={["start", "start", "start", "end", "end"]}
-            mr={2}
-            alignItems="center"
-          >
-            <Text>Valor mensal</Text>
-          </Flex>
-          <InputGroup w={300} mb={2}>
-            <InputLeftAddon children="R$" />
-            <Input
-              type="number"
-              value={monthlyValue}
-              onChange={handleMonthlyValueChange}
-            />
-          </InputGroup>
-        </Flex>
-        <Flex flexDir={["column", "column", "column", "row", "row"]}>
-          <Flex
-            w="100px"
-            justifyContent={["start", "start", "start", "end", "end"]}
-            mr={2}
-            alignItems="center"
-          >
-            <Text>Taxa de juros</Text>
-          </Flex>
-          <InputGroup w={300} mb={2}>
-            <InputLeftAddon children="%" />
-            <Input
-              type="number"
-              value={interest}
-              onChange={handleInterestChange}
-            />
-            <InputRightElement w="30">
-              <Select
-                defaultValue={1}
-                borderLeftRadius={0}
-                value={interestTime}
-                onChange={handleInterestTimeChange}
-              >
-                <option value="m">Mensal</option>
-                <option value="a">Anual</option>
-              </Select>
-            </InputRightElement>
-          </InputGroup>
-          <Flex
-            w="100px"
-            justifyContent={["start", "start", "start", "end", "end"]}
-            mr={2}
-            alignItems="center"
-          >
-            <Text>Período</Text>
-          </Flex>
-          <InputGroup w={300} mb={2}>
-            <Input type="number" value={period} onChange={handlePeriodChange} />
-            <InputRightElement w="30">
-              <Select
-                defaultValue={1}
-                borderLeftRadius={0}
-                value={periodTime}
-                onChange={handlePeriodTimeChange}
-              >
-                <option value="m">Mes(es)</option>
-                <option value="a">Ano(s)</option>
-              </Select>
-            </InputRightElement>
-          </InputGroup>
-        </Flex>
-        <Flex justifyContent="space-between">
-          <Button variant="outline" w={20} onClick={onSubmit}>
-            Calcular
-          </Button>
-
-          <Button variant="outline" w={20} onClick={clearData}>
-            Limpar
-          </Button>
-        </Flex>
-      </Flex>
-      <Flex flexDir="column">
-        <Text>Resultado</Text>
-        <Flex flexDir={["column", "column", "row", "row"]}>
-          <Flex
-            flexDir="column"
-            border="1px"
-            borderColor="borderColor"
-            borderRadius="md"
-            p="3"
-            w={200}
-          >
-            <Text>Valor total final</Text>
-            <Text fontSize="2xl">{totalFinal}</Text>
-          </Flex>
-          <Flex
-            flexDir="column"
-            border="1px"
-            borderColor="borderColor"
-            borderRadius="md"
-            p="3"
-            my={[4, 4, 0, 0]}
-            mx={[0, 0, 4, 4]}
-            w={200}
-          >
-            <Text>Valor total investido</Text>
-            <Text fontSize="2xl">{totalInvestido}</Text>
-          </Flex>
-          <Flex
-            flexDir="column"
-            border="1px"
-            borderColor="borderColor"
-            borderRadius="md"
-            p="3"
-            w={200}
-          >
-            <Text>Total em juros</Text>
-            <Text fontSize="2xl">{totalInterest}</Text>
-          </Flex>
-        </Flex>
-      </Flex>
-      {!!tableData.length && (
-        <Card mt={5}>
-          <TableContainer>
-            <Table variant="simple">
-              <Thead>
-                <Tr>
-                  <Th>Mês</Th>
-                  <Th>Juros</Th>
-                  <Th>Total Investido</Th>
-                  <Th>Total Juros</Th>
-                  <Th>Total Acumulado</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {tableData.map((row) => (
-                  <Tr>
-                    <Td>{row.mes}</Td>
-                    <Td>{mostraValor(row.juros)}</Td>
-                    <Td>{mostraValor(row.totalInvestido)}</Td>
-                    <Td>{mostraValor(row.totalJuros)}</Td>
-                    <Td>{mostraValor(row.totalAcumulado)}</Td>
-                  </Tr>
-                ))}
-              </Tbody>
-            </Table>
-          </TableContainer>
-        </Card>
-      )}
-
-      <Flex flexDir="column" m={3}>
-        <Card p={3} alignItems="center">
-          <Text fontSize="4xl">O que é juros compostos</Text>
-          <Text my={4}>
-            Vamos colocar um texto muito legal aqui... Vamos colocar um texto
-            muito legal aqui... Vamos colocar um texto muito legal aqui... Vamos
-            colocar um texto muito legal aqui... Vamos colocar um texto muito
-            legal aqui... Vamos colocar um texto muito legal aqui... Vamos
-            colocar um texto muito legal aqui... Vamos colocar um texto muito
-            legal aqui... Vamos colocar um texto muito legal aqui... Vamos
-            colocar um texto muito legal aqui... Vamos colocar um texto muito
-            legal aqui... Vamos colocar um texto muito legal aqui... Vamos
-            colocar um texto muito legal aqui... Vamos colocar um texto muito
-            legal aqui... Vamos colocar um texto muito legal aqui... Vamos
-            colocar um texto muito legal aqui... Vamos colocar um texto muito
-            legal aqui... Vamos colocar um texto muito legal aqui... Vamos
-            colocar um texto muito legal aqui... Vamos colocar um texto muito
-            legal aqui... Vamos colocar um texto muito legal aqui... Vamos
-            colocar um texto muito legal aqui...
-          </Text>
-          <iframe
-            width="304"
-            height="171"
-            src="https://www.youtube.com/embed/rq8ZUdRVDAM"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-          ></iframe>
-          <Text fontSize="4xl" mt={4}>
-            O que é juros compostos
+      </Heading>
+      <Calculadora />
+      <Flex flexDir="column" m={3} alignItems="center">
+        <Flex
+          p={4}
+          flexDir="column"
+          alignItems="center"
+          maxW="1000px"
+          border="1px solid"
+          borderColor="borderColor"
+          borderRadius={8}
+          boxShadow="dark-lg"
+        >
+          <Heading fontSize="2xl">Fórmula do juros composto</Heading>
+          <Card variant="filled" my={2} py={4} px={6}>
+            <Text fontSize="2xl">M = C (1 + i)^t </Text>
+          </Card>
+          <Text my={4} width="100%" fontSize="xl">
+            Mas afinal, o que são essas letras?
           </Text>
           <Text my={4}>
-            Vamos colocar um texto muito legal aqui... Vamos colocar um texto
-            muito legal aqui... Vamos colocar um texto muito legal aqui... Vamos
-            colocar um texto muito legal aqui... Vamos colocar um texto muito
-            legal aqui... Vamos colocar um texto muito legal aqui... Vamos
-            colocar um texto muito legal aqui... Vamos colocar um texto muito
-            legal aqui... Vamos colocar um texto muito legal aqui... Vamos
-            colocar um texto muito legal aqui... Vamos colocar um texto muito
-            legal aqui... Vamos colocar um texto muito legal aqui... Vamos
-            colocar um texto muito legal aqui... Vamos colocar um texto muito
-            legal aqui... Vamos colocar um texto muito legal aqui... Vamos
-            colocar um texto muito legal aqui... Vamos colocar um texto muito
-            legal aqui... Vamos colocar um texto muito legal aqui... Vamos
-            colocar um texto muito legal aqui... Vamos colocar um texto muito
-            legal aqui... Vamos colocar um texto muito legal aqui... Vamos
-            colocar um texto muito legal aqui...
+            <strong>Capital (C):</strong> é o primeiro valor investido.
+            Conhecemos como capital o valor inicial da negociação, ou seja, ele
+            é o valor de referência para calcularmos os juros com o passar do
+            tempo.
           </Text>
-        </Card>
+          <Text my={4}>
+            <strong>Juros (J):</strong> é o valor de compensação para o
+            rendimento. Quando uma instituição financeira faz um empréstimo, ela
+            empresta com o intuito de receber uma porcentagem a mais sobre o seu
+            capital emprestado, logo, é acordada uma taxa de juros entre as
+            partes.
+          </Text>
+          <Text my={4}>
+            <strong>Taxa de juros (i):</strong> é a porcentagem acordada em cima
+            do capital a cada instante. Essa taxa pode ser ao dia (a.d.), ao mês
+            (a.m.), ao bimestre (a.b.) ou ao ano (a.a.). A taxa de juros é uma
+            porcentagem geralmente representada na forma percentual, porém, para
+            calcular-se o juros composto, é importante escrevê-la sempre na
+            forma DECIMAL. (10% = 10/100 = 0,1)
+          </Text>
+          <Text my={4}>
+            <strong>Tempo (t):</strong> é o tempo em que o capital ficará
+            aplicado. É importante que a taxa de juros (i) e o tempo (t) estejam
+            sempre na mesma unidade de medida, por exemplo, se a taxa definida
+            foi de 10% a.a. então o tempo usado para o calculo também precisa
+            estar em anos.
+          </Text>
+          <Text my={4}>
+            <strong>Montante (M):</strong> é o valor final da transação. O
+            montante é calculado pela soma do capital com os juros ➟ M = C + J.
+            (Montante = Capital + Juros)
+          </Text>
+
+          <Heading fontSize="2xl">
+            Qual a diferença entre juros compostos e simples?
+          </Heading>
+          <Text my={4}>
+            A principal diferença entre eles é que o juros simples são
+            calculados sempre em cima do capital investido não independente da
+            sua taxa e do seu tempo, enquanto isso, o juros compostos são
+            calculados sobre o capital investido e também os juros. Veja abaixo
+            a diferença no resultado dos dois calculos aplicando em ambos um
+            valor inicial de R$10.000,00 com uma taxa fixa de 10% a.a. durante 5
+            anos.
+          </Text>
+          <TabelaComparaJuros />
+          <Youtube link="rq8ZUdRVDAM" />
+        </Flex>
       </Flex>
-      <DarkModeSwitch />
     </Flex>
   );
 };

@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import CustomAccordion from "./CustomAccordion/CustomAccordion";
 import Content from "./CustomAccordion/Content";
+import { DarkModeSwitch } from "./DarkModeSwitch";
 
 type Menus = { title: string; pages: { name: string; href: string }[] }[];
 
@@ -26,22 +27,39 @@ const Header = () => {
       title: "Finanças",
       pages: [
         { name: "Calculadora", href: "/" },
-        { name: "Opa", href: "/opa" },
-        { name: "Pai Rico", href: "/paiRico" },
+        { name: "IR", href: "/ir" },
+        { name: "Milhas", href: "/milhas" },
+      ],
+    },
+    {
+      title: "Treino",
+      pages: [
+        { name: "Treino para Iniciantes", href: "/treinoiniciantes" },
+        { name: "Dieta", href: "/dieta" },
+        { name: "Treino Completo", href: "/treinocompleto" },
       ],
     },
     {
       title: "Livros",
       pages: [
+        {
+          name: "Investimentos Inteligentes",
+          href: "/investimentosInteligentes",
+        },
         { name: "Pai Rico", href: "/paiRico" },
         { name: "Pai Rico", href: "/paiRico" },
-        { name: "Pai Rico", href: "/paiRico" },
+      ],
+    },
+    {
+      title: "Planilhas",
+      pages: [
+        { name: "Finanças Pessoais", href: "/planilhas/financaspessoais" },
       ],
     },
   ];
 
   return (
-    <Flex h="70px" bg="header" alignItems="center" w="100vw">
+    <Flex h="70px" bg="header" alignItems="center" w="100%">
       <Box display={["box", "box", "none", "none", "none"]}>
         <Menu>
           <MenuButton
@@ -96,6 +114,7 @@ const Header = () => {
             </MenuList>
           </Menu>
         ))}
+        <DarkModeSwitch />
       </Box>
     </Flex>
   );
