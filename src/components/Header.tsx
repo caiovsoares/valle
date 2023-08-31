@@ -46,8 +46,6 @@ const Header = () => {
           name: "Investimentos Inteligentes",
           href: "/investimentosInteligentes",
         },
-        { name: "Pai Rico", href: "/paiRico" },
-        { name: "Pai Rico", href: "/paiRico" },
       ],
     },
     {

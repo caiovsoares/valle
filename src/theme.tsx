@@ -21,6 +21,10 @@ const theme = extendTheme({
         default: "gray.200",
         _dark: "gray.600",
       },
+      transparentCard:{
+        default: "blackAlpha.300",
+        _dark: "whiteAlpha.200",
+      }
     },
   },
 });
