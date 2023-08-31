@@ -10,7 +10,7 @@ const financasPessoais = () => {
           para te ajudar nessa missão, com ela você vai poder listar todas as suas despesas em um só lugar, separá-las por cartão de crédito, definir suas próprias
           metas de gastos e muito mais!
         </Text>
-        <Youtube link="qkolQyUi_2Q" />
+        <Youtube link="qkolQyUi2Q" />
         <Text fontSize="4xl" mt={4}>
           Já organizou suas finanças e mesmo assim não está sobrando para investir?
         </Text>
