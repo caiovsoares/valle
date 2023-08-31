@@ -13,7 +13,7 @@ const financasPessoais = () => {
         <iframe
         width="100%"
         height="100%"
-        src={`https://www.youtube.com/embed/${https://youtu.be/qkolQyUi_2Q?feature=shared}`}
+        src={`https://www.youtube.com/embed/${www.youtube.com/embed/qkolQyUi_2Q?si=k6qqnLvQhPJEhOd8}`}
         title="YouTube video player"
       ></iframe>
         <Text fontSize="4xl" mt={4}>
