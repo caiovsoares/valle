@@ -16,7 +16,7 @@ const Footer = () => {
                 <Link display="contents" target="_blank" href='https://www.facebook.com/'> 
                     <Icon as={BiLogoFacebook} boxSize={6}/>
                 </Link>
-                <Link display="contents" target="_blank" href='https://br.linkedin.com/'> 
+                <Link display="contents" target="_blank" href='https://br.linkedin.com/in/brunomvalle'>
                     <Icon as={BiLogoLinkedin} boxSize={6}/>
                 </Link>
             </Flex>
