@@ -32,7 +32,7 @@ const investimentosInteligentes = () => {
           E ai, está esperando o que para aprender tudo isso?
           </Text>
           <Text>my={4}>
-          https://amzn.to/47WzcI8
+            https://amzn.to/47WzcI8
           </Text>
       </Card>
     </Flex>
