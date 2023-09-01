@@ -13,13 +13,6 @@ const financasPessoais = () => {
           metas de gastos e muito mais!
         </Text>
        <Youtube link="qkolQyUi_2Q" />
-        <Text fontSize="4xl" mt={4}>
-          Já organizou suas finanças e mesmo assim não está sobrando para investir?
-        </Text>
-        <Text my={4}>
-            Renda extra é uma ótima maneira de começar a sobrar um dinheiro a mais para seus investimentos, nesse vídeo eu te dou dicas de renda extra
-          que eu mesmo já fiz para investir e deu certo, não deixe de conferir!
-        </Text>
       </Card>
     </Flex>
   );
