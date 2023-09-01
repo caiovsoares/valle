@@ -10,7 +10,7 @@ const Footer = () => {
                 <Link display="contents" target="_blank" href='https://www.youtube.com/channel/UC2CREmVBIAKWKp8-GobVuTw'>
                     <Icon as={BiLogoYoutube} boxSize={7}/>
                 </Link>
-                <Link display="contents" target="_blank" href='https://www.instagram.com/_valle_bruno'>
+                <Link display="contents" target="_blank" href='https://www.instagram.com/_bruno.valle/'>
                     <Icon as={BiLogoInstagram} boxSize={6}/>
                 </Link>
                 <Link display="contents" target="_blank" href='https://br.linkedin.com/in/brunomvalle'>
