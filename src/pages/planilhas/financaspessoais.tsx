@@ -1,6 +1,7 @@
 import { Flex, Card, Text } from "@chakra-ui/react";
 import Youtube from "../components/Youtube";
 
+
 const financasPessoais = () => {
   return (
     <Flex flexDir="column" m={3} alignItems="center">
