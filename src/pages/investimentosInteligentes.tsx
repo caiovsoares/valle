@@ -24,13 +24,13 @@ const investimentosInteligentes = () => {
           6. Estratégias inteligêntes em renda fixa;
           7. Estratégia inteligentes com ações;
           10. Estratégia inteligentes com imóveis.
-</Text>
+          </Text>
           <Text my={4}>
           E no meio do caminho você ainda aprende sobre SELIC, IPC-A, CDB, Clubes de Investimentos, entre outras siglas ou girias utilizadas no mercado financeiro.
           E ai, está esperando o que para aprender tudo isso?
           </Text>
-          <Text>
-            my={4}>https://amzn.to/47WzcI8
+          <Text>my={4}>
+          https://amzn.to/47WzcI8
           </Text>
       </Card>
     </Flex>
