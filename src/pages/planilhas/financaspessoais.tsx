@@ -1,5 +1,5 @@
 import { Flex, Card, Text } from "@chakra-ui/react";
-import Youtube from "../components/Youtube";
+import { Youtube } from "../components/Youtube";
 
 
 const financasPessoais = () => {
