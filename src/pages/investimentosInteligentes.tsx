@@ -4,9 +4,11 @@ const investimentosInteligentes = () => {
   return (
     <Flex flexDir="column" m={3} alignItems="center">
       <Card p={3} alignItems="center" maxW="1000px">
-        <Text fontSize="4xl">O que é Investimento?</Text>
+        <Text fontSize="4xl">
+          O que é Investimento?
+        </Text>
         <Text my={4}>
-              Segundo Gustavo Cerbasi, Investir é MULTIPLICAR.
+          Segundo Gustavo Cerbasi, Investir é <strong>MULTIPLICAR.</strong>
           </Text>
           <Text my={4}>
             Esta é somente uma das muitas lições que você vai adquirir lendo o livro "Investimentos Inteligentes", que na minha opnião, é o melhor livro
