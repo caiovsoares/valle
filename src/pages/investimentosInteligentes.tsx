@@ -1,0 +1,39 @@
+import { Flex, Card, Text } from "@chakra-ui/react";
+
+const investimentosInteligentes = () => {
+  return (
+    <Flex flexDir="column" m={3} alignItems="center">
+      <Card p={3} alignItems="center" maxW="1000px">
+        <Text fontSize="4xl">
+          O que é Investimento?
+        </Text>
+        <Text my={4}>
+          Segundo Gustavo Cerbasi, Investir é <strong>MULTIPLICAR.</strong>
+          </Text>
+          <Text my={4}>
+            Esta é somente uma das muitas lições que você vai adquirir lendo o livro "Investimentos Inteligentes", que na minha opnião, é o melhor livro
+          para quem está começando ou quer começar a investir.
+          </Text>
+          <Text my={4}>
+          Não, eu não estou exagerando, este livro pode ser o melhor investimento da sua vida! O autor te passa conhecimento para que você multiplique 
+          seu patrimônio com as opções de investimentos disponíveis no mercado, desde renda fixa até ações e previdência privada, tudo isso 
+          usando conceitos que qualquer pessoa leiga no assunto consiga entender. Veja só alguns dos tópicos do seu livro.
+          </Text>
+          <Text my={4}>
+          1. Investir é multiplicar;
+          2. Obstáculos ao investidor iniciante;
+          3. O que não fazer;
+          6. Estratégias inteligêntes em renda fixa;
+          7. Estratégia inteligentes com ações;
+          10. Estratégia inteligentes com imóveis.
+          </Text>
+          <Text my={4}>
+          E no meio do caminho você ainda aprende sobre SELIC, IPC-A, CDB, Clubes de Investimentos, entre outras siglas ou girias utilizadas no mercado financeiro.
+          E ai, está esperando o que para aprender tudo isso?
+          </Text>
+      </Card>
+    </Flex>
+  );
+};
+
+export default investimentosInteligentes;

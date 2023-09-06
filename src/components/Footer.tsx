@@ -7,23 +7,20 @@ const Footer = () => {
         <Flex flexDir="column" alignItems="flex-end" mr={2}> 
             <Flex alignItems="center">
                 <Text mr={2}>Acompanhe nas redes sociais</Text>
-                <Link display="contents" target="_blank" href='https://www.youtube.com/'> 
+                <Link display="contents" target="_blank" href='https://www.youtube.com/channel/UC2CREmVBIAKWKp8-GobVuTw'>
                     <Icon as={BiLogoYoutube} boxSize={7}/>
                 </Link>
-                <Link display="contents" target="_blank" href='https://www.instagram.com/'> 
+                <Link display="contents" target="_blank" href='https://www.instagram.com/_bruno.valle/'>
                     <Icon as={BiLogoInstagram} boxSize={6}/>
                 </Link>
-                <Link display="contents" target="_blank" href='https://www.facebook.com/'> 
-                    <Icon as={BiLogoFacebook} boxSize={6}/>
-                </Link>
-                <Link display="contents" target="_blank" href='https://br.linkedin.com/'> 
+                <Link display="contents" target="_blank" href='https://br.linkedin.com/in/brunomvalle'>
                     <Icon as={BiLogoLinkedin} boxSize={6}/>
                 </Link>
             </Flex>
             <Flex mt={2}> 
                 <Card bgColor="transparentCard" boxShadow="lg" py={4} px={6}>
                     <Text fontWeight="semibold">E-mail para contato: </Text>
-                    <Text>email@email.com</Text>
+                    <Text>bruno.vallemv@gmail.com</Text>
                 </Card>
             </Flex>
         </Flex>
