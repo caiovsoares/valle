@@ -1,4 +1,5 @@
 import { Flex, Card, Text } from "@chakra-ui/react";
+import LinkAmazon from "../components/LinkAmazon";
 
 const investimentosInteligentes = () => {
   return (
@@ -31,6 +32,7 @@ const investimentosInteligentes = () => {
           E no meio do caminho você ainda aprende sobre SELIC, IPC-A, CDB, Clubes de Investimentos, entre outras siglas ou girias utilizadas no mercado financeiro.
           E ai, está esperando o que para aprender tudo isso?
           </Text>
+          <LinkAmazon link={"https://www.amazon.com.br/"}/>
       </Card>
     </Flex>
   );
