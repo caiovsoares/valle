@@ -61,11 +61,11 @@ const Calculadora = () => {
   const [totalInvestido, setTotalInvestido] = useState<string>("R$ 0,00");
   const [totalInterest, setTotalInterest] = useState<string>("R$ 0,00");
 
-  const [interestTime, setInterestTime] = useState<string>("m");
+  const [interestTime, setInterestTime] = useState<string>("a");
   const handleInterestTimeChange = (e: ChangeEvent<HTMLSelectElement>) =>
     setInterestTime(e.target.value);
 
-  const [periodTime, setPeriodTime] = useState<string>("m");
+  const [periodTime, setPeriodTime] = useState<string>("a");
   const handlePeriodTimeChange = (e: ChangeEvent<HTMLSelectElement>) =>
     setPeriodTime(e.target.value);
 
@@ -274,7 +274,7 @@ const Calculadora = () => {
         </Flex>
       </Flex>
       {!!tableData.length && (
-        <Card mt={5}>
+        <Card mt={5} overflowX="auto" maxW="100%">
           <TableContainer>
             <Table variant="simple">
               <Thead>

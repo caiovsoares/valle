@@ -81,16 +81,18 @@ const Header = () => {
           </MenuList>
         </Menu>
       </Box>
-      <Image
-        src={
-          colorMode == "light"
-            ? "/logo-transparente-preto.png"
-            : "/logo-transparente-branco.png"
-        }
-        alt="Bruno Valle Logo"
-        h="70px"
-        mx={3}
-      />
+      <Link href="/">
+        <Image
+          src={
+            colorMode == "light"
+              ? "/logo-transparente-preto.png"
+              : "/logo-transparente-branco.png"
+          }
+          alt="Bruno Valle Logo"
+          h="70px"
+          mx={3}
+        />
+      </Link>
       <Box display={["none", "none", "block", "block", "block"]}>
         {menus.map((menu) => (
           <Menu>
