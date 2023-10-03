@@ -18,6 +18,7 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import { ChangeEvent, useState } from "react";
+import LineChart from "./LineChart";
 
 type tableRowInterface = {
   mes: number;
@@ -299,6 +300,7 @@ const Calculadora = () => {
               </Tbody>
             </Table>
           </TableContainer>
+          <LineChart data={tableData} />
         </Card>
       )}
     </Flex>

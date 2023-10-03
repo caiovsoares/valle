@@ -3,7 +3,6 @@ import Youtube from "../components/Youtube";
 import Calculadora from "../components/Calculadora";
 import TabelaComparaJuros from "../components/TabelaComparaJuros";
 
-
 const Index = () => {
   return (
     <Flex flexDir="column" alignItems={"center"} my={20} w="100%">
